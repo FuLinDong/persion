@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1" />
+		<title>表单与indexDB</title>
+		<link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+		<link rel="stylesheet" type="text/css" href="bootstrap-3.3.7/bootstrap-3.3.7/dist/css/bootstrap.css"/>
+		<link rel="stylesheet" type="text/css" href="css/表单与indexDB.css"/>
+	</head>
+	<body onload="window_onload()">
+		<div class="main">
+			<section>
+				<header id="">
+					<h1>编辑订单信息</h1>
+				</header>
+				<form id="form1" class="form-horizontal">
+					<!--第一行start-->
+					<div class="row">
+						<div class="col-md-4">
+							<div class="form-group">
+								<div class="col-md-3">
+									<label class="control-label" class=""><span class="glyphicon glyphicon-star"></span>订单编号</label>
+								</div>
+								<div class="col-md-7">
+									<input type="text" id="tbxCode" name="tbxCode" class="form-control" maxlength="8" placeholder="必须输入一个不存在的编号订单" autofocus="autofocus" required />
+									<!--<span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+  									<span id="inputError2Status" class="sr-only">(error)</span>-->
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+								<div class="col-md-3">
+									<label class="control-label"><span class="glyphicon glyphicon-star"></span>订单日期</label>
+								</div>								
+								<div class="col-md-7">
+									<input type="date" id="tbxDate" name="tbxDate" class="form-control" maxlength="10"   required/>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+								<div class="col-md-3">
+									<label class="control-label"><span class="glyphicon glyphicon-star"></span>商品编号</label>
+								</div>
+								<div class="col-md-7">
+									<input type="text" id="tbxGoodsCode" name="tbxGoodsCode" class="form-control" maxlength="12" placeholder="必须输入商品编号"  required/>
+									<!--<span class="glyphicon glyphicon-warning-sign form-control-feedback" aria-hidden="true"></span>
+ 								    <span id="inputWarning2Status" class="sr-only">(warning)</span>-->
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--第一行end-->
+					<!--第二行start-->
+					<div class="row">
+						<div class="col-md-4">
+							<div class="form-group">
+								<div class="col-md-3">
+									<label class="control-label" class="">&nbsp;商&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;标</label>
+								</div>
+								<div class="col-md-7">
+									<input type="text" id="tbxBrandName" name="tbxBrandName" class="form-control" maxlength="50"   />
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+								<div class="col-md-3">
+									<label class="control-label">&nbsp;数&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;量</label>
+								</div>								
+								<div class="col-md-7">
+									<input type="number" id="tbxNum" name="tbxNum" class="form-control" maxlength="6" placeholder="必须输入整数值" onblur="tbxNum_onblur();" />
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+								<div class="col-md-3">
+									<label class="control-label">&nbsp;单&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;价</label>
+								</div>
+								<div class="col-md-7">
+									<input type="text" id="tbxPrice" name="tbxPrice"  class="form-control" maxlength="6" placeholder="请输入有效单价"  onblur="tbxPrice_onblur();" />
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--第二行end-->
+					<!--第三行start-->
+					<div class="row">
+						<div class="col-md-4">
+							<div class="form-group">
+								<div class="col-md-3">
+									<label class="control-label" class="">&nbsp;全&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;额</label>
+								</div>
+								<div class="col-md-7">
+									<input type="text" id="tbxMoney" name="tbxMoney" class="form-control" value="￥0.00" readonly="readonly"  />
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+								<div class="col-md-3">
+									<label class="control-label">&nbsp;负&nbsp;&nbsp;&nbsp;责&nbsp;&nbsp;&nbsp;人</label>
+								</div>								
+								<div class="col-md-7">
+									<input type="text" id="tbxPersonName" name="tbxPersonName" class="form-control" maxlength="20"  />
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="form-group">
+								<div class="col-md-3">
+									<label class="control-label">负责人E-mail</label>
+								</div>
+								<div class="col-md-7">
+									<input type="email" id="tbxEmail" name="tbxEmail" class="form-control" placeholder="请输入一个有效的邮箱" maxlength="20" />
+									<!--<span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>-->
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--第三行end-->
+					<div id="buttonDiv">	
+						<div class="pull-right btn-group">
+							<input type="button" class="btn btn-primary" onclick="btnNew_onclick();" id="btnNew" name="btnNew" value="新增"></input>
+							<input type="submit" class="btn btn-info" value="追加" id="btnAdd" name="btnAdd" formaction="javascript:btnAdd_onclick();"></input>
+							<input type="submit" class="btn btn-warning"  id="btnUpdate" name="btnUpdate" value="修改" formaction="javascript:btnUpdate_onclick();"></input>
+							<input type="button" class="btn btn-danger" value="删除" onclick="btnDelete_onclick();" id="btnDelete" name="btnDelete"></input>
+							<input type="reset" class="btn btn-default" value="重置" onclick="btnClear_onclick();" id="btnClear" name="btnClear"></input>
+						</div>
+					</div>
+				</form>
+			</section>
+			<section class="panel">
+				<header class="panel-heading">
+					<h1 class="panel-title">订单信息一览表</h1>
+				</header>
+				<div class="panel-body">
+					<div class="table-responsive">
+						<table class="table table-bordered table-hover">
+							<thead>
+								<tr>
+									<th>订单编号</th>
+									<th>订单日期</th>
+									<th>商品编号</th>
+									<th>商标</th>
+									<th>数量</th>
+									<th>单价</th>
+									<th>金额</th>
+									<th>负责人</th>
+									<th>负责人E-mail</th>
+								</tr>
+							</thead>
+							<tbody id="datatable"></tbody>
+						</table>
+					</div>
+				</div>
+			</section>
+		</div>
+		<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+	    <script src="bootstrap-3.3.7/bootstrap-3.3.7/dist/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+	    <script type="text/javascript" src="js/实战表单与indexDB.js"></script>
+	</body>
+</html>
